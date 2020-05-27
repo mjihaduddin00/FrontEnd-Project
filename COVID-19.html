@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>COVID-19</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="COVID-19.css">
+</head>
+<body>
+    <div class="nav-bar">
+        <nav class="navbar navbar-dark bg-dark">
+            <a href="index.html">Home</a>
+            <a href="Latest Stories.html">Latest Stories</a>
+            <a href="COVID-19.html">COVID-19 - Live Statistics</a>
+            <a href="Catch A Flight.html">Catch A Flight</a>
+            <a href="Weather.html">Today's Weather</a>
+            <a href="ACB.html">A Chicagoan's Blog</a>
+            <a href="About The Creator!.html">About The Creator!</a>
+          </nav>
+      </div>
+
+    <div class="container">
+        <h1 class="text-center mt-5">Live Data: COVID-19</h1>
+        <br>
+        <table class="table">
+            <thead class="thead-dark text-center">
+              <tr>
+                <th scope="col">Total Cases</th>
+                <th scope="col">Total Deaths</th>
+                <th scope="col">Total Recovered</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr id="data" style="text-align: center;">
+
+              </tr>
+            </tbody>
+          </table>
+          <button onclick="refreshData()" class="btn btn-danger btn-block">
+              Refresh Data
+          </button>
+    </div>
+    <br>
+    <div>
+        <h1 id="Article">COVID-19: What is COVID-19?</h1>
+        <p>A novel coronavirus is a new coronavirus that has not been previously identified. The virus causing coronavirus disease 2019 (COVID-19), is not the same as the coronaviruses that commonly circulate among humans and cause mild illness, like the common cold.
+
+            A diagnosis with coronavirus 229E, NL63, OC43, or HKU1 is not the same as a COVID-19 diagnosis. Patients with COVID-19 will be evaluated and cared for differently than patients with common coronavirus diagnosis</p>
+        <p>On February 11, 2020 the World Health Organization announced an official name for the disease that is causing the 2019 novel coronavirus outbreak, first identified in Wuhan China. The new name of this disease is coronavirus disease 2019, abbreviated as COVID-19. In COVID-19, ‘CO’ stands for ‘corona,’ ‘VI’ for ‘virus,’ and ‘D’ for disease. Formerly, this disease was referred to as “2019 novel coronavirus” or “2019-nCoV”.
+
+            There are many types of human coronaviruses including some that commonly cause mild upper-respiratory tract illnesses. COVID-19 is a new disease, caused be a novel (or new) coronavirus that has not previously been seen in humans. The name of this disease was selected following the World Health Organization (WHO) best practiceexternal iconexternal icon for naming of new human infectious diseases.</p>
+        <p>People in the U.S. may be worried or anxious about friends and relatives who are living in or visiting areas where COVID-19 is spreading. Some people are worried about getting the disease from these people. Fear and anxiety can lead to social stigma, for example, toward people who live in certain parts of the world, people who have traveled internationally, people who were in quarantine, or healthcare professionals.
+
+            Stigma is discrimination against an identifiable group of people, a place, or a nation. Stigma is associated with a lack of knowledge about how COVID-19 spreads, a need to blame someone, fears about disease and death, and gossip that spreads rumors and myths.
+            
+            Stigma hurts everyone by creating more fear or anger toward ordinary people instead of focusing on the disease that is causing the problem.</p>
+            <p>People can fight stigma by providing social support in situations where you notice this is occurring. Stigma affects the emotional or mental health of stigmatized groups and the communities they live in. Stopping stigma is important to making communities and community members resilient. See resources on mental health and coping during COVID-19. Everyone can help stop stigma related to COVID-19 by knowing the facts and sharing them with others in your community.</p>
+        <p>CDC’s overall case numbers are validated through a confirmation process with jurisdictions. The process used for finding and confirming cases displayed by different places may differ.</p>
+        <p>CDC’s COVID-19 case numbers include many publicly reported numbers, including information from state, local, territorial, international and external partners.</p>
+        <p>Delays in reporting can cause the number of COVID-19 cases reported on previous days to increase. (Sometimes this effect is described as “backfill.”) State, local, and territorial health departments report the number of cases that have been confirmed and share these data with CDC. Since it takes time to conduct laboratory testing, cases from a previous day may be added to the daily counts a few days late.</p>
+        <p>Are people with high blood pressure (hypertension) at higher risk from COVID-19?
+
+            At this time, we do not think that people with high blood pressure and no other underlying health conditions are more likely than others to get severely ill from COVID-19. Although many people who have gotten severely ill from COVID-19 have high blood pressure, they are often older or have other medical conditions like obesity, diabetes, and serious heart conditions that place them at higher risk of severe illness from COVID-19.
+            
+            If you have high blood pressure, it’s critically important that you keep your blood pressure under control to lower your risk for heart disease and strokes. Take your blood pressure medications as directed, keep a log of your blood pressure every day if you are able to take your blood pressure at home, and work with your healthcare team to make sure your blood pressure is well controlled. Any changes to your medications should be made in consultation with your healthcare team.
+            
+            Should I continue to take my blood pressure medication?
+            
+            Yes. Continue to take your blood pressure medications exactly as prescribed and make lifestyle modifications agreed upon in your treatment plan. Continue all your regular medications, including angiotensin-converting enzyme inhibitors (ACE-Is) or angiotensin receptor blockers (ARBs), as prescribed by your healthcare team. This is recommended by current clinical guidelines from the American Heart Association, the Heart Failure Society of America, and the American College of Cardiology</p>
+
+        <p>Information gathered from <a href="https://www.cdc.gov/coronavirus/2019-ncov/faq.html#Coronavirus-Disease-2019-Basics">Centers for Disease Control and Prevention.</a></p>
+    </div>
+    
+</body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+        init()
+
+
+        function init(){
+            var url = "https://api.covid19api.com/summary"
+
+            var data = ''
+
+            $.get(url,function(data){
+                console.log(data.Global)
+
+                data = `
+                
+                <td>${data.Global.TotalConfirmed}</td>
+                <td>${data.Global.TotalDeaths}</td>
+                <td>${data.Global.TotalRecovered}</td>
+
+                `
+
+                $("#data").html(data)
+            })
+        }
+
+
+    function refreshData(){
+            clearData()
+            init()
+    }
+
+    function clearData(){
+            $("#data").empty()
+        }
+</script>
+</html>
